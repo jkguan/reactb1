@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export default class SanPham extends Component {
   render() {
-    console.log("run");
+    // console.log("run");
     return (
       <div>
         <div className="card">
