@@ -14,9 +14,10 @@ https://cyber-demo-example-project-reactjs.vercel.app/cart
 import React, { Component } from "react";
 import Modal from "./Modal";
 import SanPham from "./SanPham";
+import { connect } from "react-redux";
 
-export default class BTGioHang extends Component {
-  danhSachSanPham = [
+class BTGioHang extends Component {
+  /* danhSachSanPham = [
     {
       maSP: "1",
       tenSP: "Android MZ",
@@ -53,7 +54,7 @@ export default class BTGioHang extends Component {
       rom: "8GB",
       giaBan: 6333333,
     },
-  ];
+  ]; */
 
   /* STATE */
   state = {
@@ -116,7 +117,7 @@ export default class BTGioHang extends Component {
     4. Cap nhat lai state
      */
     // let danhSachGioHang = this.state.danhSachGioHang;
-    // let sanPhamChiTiet = this.state.sanPhamChiTiet;
+    // let sanPhamChiTiet = this.props;
     //this.state la object, Dung Boc Tach Destructring
     let { danhSachGioHang, sanPhamChiTiet } = this.state;
     const index = danhSachGioHang.findIndex((item33) => {
@@ -163,17 +164,18 @@ export default class BTGioHang extends Component {
     let total = danhSachGioHang.reduce((tong, cartHienTai) => {
       return (tong += cartHienTai.soLuong);
     }, 0);
-    //tham so thu 1  la callback func, tham so thu 2 la gia tri ban dau cua tong
+    //tham so thu 1  la callback func, tham so thu 2 la gia tri ban dau cua tong (0)
     //reduce return ve 1 gia tri, khac ve map, filter tra ve 1 mang
     return total;
   };
 
   renderDSSanPham = () => {
-    return this.danhSachSanPham.map((sanPham99, index) => {
+    return this.props.danhSachSP.map((sanPham99, index) => {
+      //cham props
       return (
         <div className="col-sm-4" key={index}>
           <SanPham
-            handleDetail={this.handleDetail}
+            // handleDetail={this.handleDetail}
             handleAddSanPham={this.handleAddSanPham}
             sanPham={sanPham99}
           />
@@ -209,7 +211,7 @@ export default class BTGioHang extends Component {
               <div className="col-sm-5">
                 <img
                   className="img-fluid"
-                  src={this.state.sanPhamChiTiet.hinhAnh}
+                  src={this.props.sanPhamCT.hinhAnh}
                   alt=""
                 />
               </div>
@@ -219,27 +221,27 @@ export default class BTGioHang extends Component {
                   <tbody>
                     <tr>
                       <td>Màn hình</td>
-                      <td>{this.state.sanPhamChiTiet.manHinh}</td>
+                      <td>{this.props.sanPhamCT.manHinh}</td>
                     </tr>
                     <tr>
                       <td>Hệ điều hành</td>
-                      <td>{this.state.sanPhamChiTiet.heDH}</td>
+                      <td>{this.props.sanPhamCT.heDH}</td>
                     </tr>
                     <tr>
                       <td>Camera trước</td>
-                      <td>{this.state.sanPhamChiTiet.cameraTruoc}</td>
+                      <td>{this.props.sanPhamCT.cameraTruoc}</td>
                     </tr>
                     <tr>
                       <td>Camera sau</td>
-                      <td>{this.state.sanPhamChiTiet.cameraSau}</td>
+                      <td>{this.props.sanPhamCT.cameraSau}</td>
                     </tr>
                     <tr>
                       <td>RAM</td>
-                      <td>{this.state.sanPhamChiTiet.ram}</td>
+                      <td>{this.props.sanPhamCT.ram}</td>
                     </tr>
                     <tr>
                       <td>ROM</td>
-                      <td>{this.state.sanPhamChiTiet.rom}</td>
+                      <td>{this.props.sanPhamCT.rom}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -251,3 +253,15 @@ export default class BTGioHang extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    //key: value
+    //key la props cua component, value la state duoc luu tren store
+    danhSachSP: state.gioHangReducer.danhSachSanPham,
+    sanPhamCT: state.gioHangReducer.sanPhamChiTiet,
+  };
+};
+
+export default connect(mapStateToProps)(BTGioHang);
+//lay du lieu la tham so thu 1

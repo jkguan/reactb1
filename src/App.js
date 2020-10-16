@@ -1,7 +1,8 @@
 import React from "react";
 // import logo from "./logo.svg";
 import "./App.css";
-import BTGioHang from "./BaiTapGioHang/BTGioHang";
+// import BTGioHang from "./BaiTapGioHang/BTGioHang";
+import BTGioHang from "./BaiTapGioHangRedux/BTGioHang";
 
 // import StateLessComponent from "./components/StateLessComponents.js";
 // import StateFull, {
@@ -28,6 +29,7 @@ function App() {
       {/* <BaiTapChonMauXe /> */}
       {/* <DemoCourse /> */}
       {/* <DemoProps /> */}
+      {/* <BTGioHang /> */}
       <BTGioHang />
     </div>
   );
